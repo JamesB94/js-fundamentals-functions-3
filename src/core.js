@@ -5,7 +5,15 @@
 // "The cake is still baking!" if there are any remaining minutes left,
 // or "You didn't set a timer!" if no value is provided to the parameter
 
-
+function timerStatus(timeRemain) {
+  if (timeRemain === 0) {
+    return "Phil's cake is ready!"
+  } else if (timeRemain >= 1) {
+    return 'The cake is still baking!'
+  } else {
+    return "You didn't set a timer!"
+  }
+}
 
 // 2. To help Phil prepare ahead of time, create a function named estimatePrepTime
 // that accepts two parameters:
@@ -16,7 +24,12 @@
 // If no prep time per ingredient is provided, the function should assume each ingredient
 // takes 2 minutes to prepare
 
-
+function estimatePrepTime(arrIngredients, prepTime) {
+  if (prepTime === undefined) {
+    prepTime = 2
+  }
+  return arrIngredients.length * prepTime
+}
 
 // 3. Phil needs to know the quantity of milk and eggs to use! Create a function
 // named calculateQuantities which accepts two parameters:
@@ -34,7 +47,19 @@
 // calculateQuantities(["milk", "eggs"], 3)
 // returns: { sugar: 0, eggs: 6 }
 
-
+function calculateQuantities(ingredientsList, layersInCake) {
+  const recipe = {
+    sugar: 0,
+    eggs: 0
+  }
+  if (ingredientsList.includes('sugar')) {
+    recipe.sugar = 100 * layersInCake
+  }
+  if (ingredientsList.includes('eggs')) {
+    recipe.eggs = 2 * layersInCake
+  }
+  return recipe
+}
 
 // 4. Phil's cake is pretty small and only provides 1 portion. He wants to make a bigger one!
 // Create a function named improveRecipe that accepts two parameters:
@@ -49,13 +74,18 @@
 // improveRecipe({ eggs: 2, milk: 100, sugar: 200 }, 3)
 // returns: { eggs: 6, milk: 300, sugar: 600 }
 
-
-
+function improveRecipe(recipe, numberOfPortions) {
+  const keys = Object.keys(recipe)
+  keys.forEach(function (theKey) {
+    recipe[theKey] = recipe[theKey] * numberOfPortions
+  })
+  return recipe
+}
 
 // Don't change the code below this line
 module.exports = {
-    timerStatus,
-    estimatePrepTime,
-    calculateQuantities,
-    improveRecipe
+  timerStatus,
+  estimatePrepTime,
+  calculateQuantities,
+  improveRecipe
 }
